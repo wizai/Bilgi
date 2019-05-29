@@ -15,4 +15,8 @@
 //    return view('welcome');
 //});
 
-Route::get('/', 'HomeController@show');
+//Route::get('/', array('middleware' => 'cors', 'uses' => 'HomeController@show'));
+
+//Auth::routes();
+//
+//Route::get('/home', 'HomeController@index')->name('home');

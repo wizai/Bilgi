@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('register',  array('middleware' => 'cors', 'uses' => 'Auth\AuthController@register'))->name('register');
+Route::post('login',  array('middleware' => 'cors', 'uses' => 'Auth\AuthController@login'))->name('login');
+Route::get('/user',  array('middleware' => 'cors', 'uses' => 'Auth\AuthController@user'));
+Route::post('/logout', array('middleware' => 'cors', 'uses' => 'Auth\AuthController@logout'));
+Route::get('letter/{letter}', array('middleware' => 'cors', 'uses' => 'ArticleController@show'));
