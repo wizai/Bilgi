@@ -61,7 +61,8 @@ class ArticleController extends Controller
                 return $this->getMovies($letter);
             }
             $randomIndex = array_rand($result, 1);
-            $reqMovie = @file_get_contents($this->getMovieUrl($randomIndex));
+            $movieRandomId = $result[$randomIndex]->id;
+            $reqMovie = @file_get_contents($this->getMovieUrl($movieRandomId));
             $reqMovieDecoded = json_decode($reqMovie);
             $json = json_encode($reqMovieDecoded);
             return new Response($json, 200, array('Content-Type' => 'application/json'));
