@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
-            \Barryvdh\Cors\HandleCors::class,
+            \App\Http\Middleware\Cors::class,
         ],
     ];
 
@@ -58,6 +58,5 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'cors' => \App\Http\Middleware\Cors::class,
-        \Barryvdh\Cors\HandleCors::class
     ];
 }

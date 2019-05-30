@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 
 class ArticleController extends Controller
 {
-    private $nbNews = 100;
+    private $nbNews = 10;
     private $nbMovies = 20;
 
     public function show($letter)
@@ -61,7 +61,9 @@ class ArticleController extends Controller
                 return $this->getMovies($letter);
             }
             $randomIndex = array_rand($result, 1);
-            $json = json_encode($result[$randomIndex]);
+            $reqMovie = @file_get_contents($this->getMovieUrl($randomIndex));
+            $reqMovieDecoded = json_decode($reqMovie);
+            $json = json_encode($reqMovieDecoded);
             return new Response($json, 200, array('Content-Type' => 'application/json'));
 
         }
@@ -83,6 +85,13 @@ class ArticleController extends Controller
     {
         $apiKey = 'c799aadd76087ed621e2bb3c7efe569e';
         return 'https://api.themoviedb.org/3/search/movie?api_key=' . $apiKey . '&query=' . $letter . '&page=' . $page;
+    }
+
+    /***************************** THEMOVIEDB API - Movie *****************************/
+    private function getMovieUrl($movieId)
+    {
+        $apiKey = 'c799aadd76087ed621e2bb3c7efe569e';
+        return 'https://api.themoviedb.org/3/movie/'. $movieId .'?api_key='.$apiKey;
     }
 
 }
