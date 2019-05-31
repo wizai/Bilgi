@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 
-class ArticleController extends Controller
+class APIController extends Controller
 {
-    private $nbNews = 10;
+    private $nbNews = 25;
     private $nbMovies = 20;
 
     public function show($letter)
@@ -16,7 +17,6 @@ class ArticleController extends Controller
         return $this->getArticle($letter);
 
     }
-
 
     public function getArticle($letter)
     {
@@ -94,5 +94,4 @@ class ArticleController extends Controller
         $apiKey = 'c799aadd76087ed621e2bb3c7efe569e';
         return 'https://api.themoviedb.org/3/movie/'. $movieId .'?api_key='.$apiKey;
     }
-
 }

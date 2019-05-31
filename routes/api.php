@@ -1,5 +1,6 @@
 <?php
 
+use App\Article;
 use Illuminate\Http\Request;
 
 /*
@@ -17,4 +18,8 @@ Route::post('register',  array('middleware' => 'cors', 'uses' => 'Auth\AuthContr
 Route::post('login',  array('middleware' => 'cors', 'uses' => 'Auth\AuthController@login'))->name('login');
 Route::get('/user',  array('middleware' => 'cors', 'uses' => 'Auth\AuthController@user'));
 Route::post('/logout', array('middleware' => 'cors', 'uses' => 'Auth\AuthController@logout'));
-Route::get('letter/{letter}', array('middleware' => 'cors', 'uses' => 'ArticleController@show'));
+
+Route::apiResource('films','Api\FilmController');
+Route::apiResource('articles','Api\ArticleController');
+
+Route::get('letter/{letter}', array('middleware' => 'cors', 'uses' => 'Api\APIController@show'));
