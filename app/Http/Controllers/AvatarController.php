@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Article;
-use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class ArticleController extends Controller
+class AvatarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +13,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return Article::with(["users"])->get();
+        //
     }
 
     /**
@@ -25,13 +22,9 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request  $request)
+    public function store(Request $request)
     {
-        $article = Article::create($request->all());
-        $user = User::find($request->get('user_ids'));
-        $article->users()->attach($user);
-        $article->save();
-        return response()->json($article, 201);
+        //
     }
 
     /**
@@ -40,9 +33,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($article)
+    public function show($id)
     {
-        return Article::find($article);
+        //
     }
 
     /**

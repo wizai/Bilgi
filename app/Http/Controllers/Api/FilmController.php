@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Film;
-use App\Http\Requests\FilmStoreRequest;
 
 class FilmController extends Controller
 {
@@ -25,16 +25,13 @@ class FilmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FilmStoreRequest $request)
+    public function store(Request $request)
     {
         $film = Film::create($request->all());
-        $usersIds = $request->input('users');
-        $usersIds = explode(',', $usersIds);
-        $film->users()->attach($usersIds);
+        $user = User::find($request->get('user_ids'));
+        $film->users()->attach($user);
+        $film->save();
         return response()->json($film, 201);
-
-       /* $film = Film::create($request->all());
-        return response()->json($film, 201);*/
     }
 
     /**
@@ -55,7 +52,7 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FilmStoreRequest  $request, $id)
+    public function update(Request  $request, $id)
     {
        /* $film = Film::findOrFail($id);
         $film->title = $request->title;

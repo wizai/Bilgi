@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Avatar extends Model
+class Hobby extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['title'];
 
     public function User()
     {
         return $this->belongsTo('App\User','foreign_key');
     }
-
 }

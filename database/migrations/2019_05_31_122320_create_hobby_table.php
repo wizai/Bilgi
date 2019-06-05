@@ -13,7 +13,7 @@ class CreateHobbyTable extends Migration
      */
     public function up()
     {
-        Schema::create('hobby', function (Blueprint $table) {
+        Schema::create('hobbies', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->string('title');

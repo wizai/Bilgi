@@ -17,10 +17,10 @@ class CreateFilmsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('title');
-            $table->string('body')->nullable();
-            $table->string('affiche');
-            $table->string('img');
-            $table->string('genre');
+            $table->text('body')->nullable();
+            $table->string('affiche')->nullable();
+            $table->string('img')->nullable();
+            $table->string('genre')->nullable();
             $table->integer('note');
             $table->date('date')->default('1970-01-01');;
         });

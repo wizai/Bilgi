@@ -18,6 +18,20 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+        var_dump($request);
+        if ($request->hobby){
+            foreach ($request->hobby as $item) {
+                $user->Hobbies()->create([
+                    'title' => $item
+                ]);
+            }
+        }
+        if ($request->file){
+            $path = $request->file('avatar')->store('avatars');
+            $user->Avatar()->create([
+                'name'      => asset('/storage/'.$path),
+            ]);
+        }
         if(!$token = auth()->attempt($request->only(['email', 'password'])))
         {
             return abort(401);
