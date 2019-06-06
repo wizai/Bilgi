@@ -53,7 +53,11 @@ class HobbyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $hobby = Hobby::find($id);
+        $user = User::find($request->get('user_ids'));
+        $hobby->users()->attach($user);
+        $hobby->save();
+        return response()->json($hobby, 201);
     }
 
     /**
@@ -64,6 +68,6 @@ class HobbyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Hobby::delete($id);
     }
 }

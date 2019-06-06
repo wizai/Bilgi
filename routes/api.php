@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 
 Route::post('register',  array('middleware' => 'cors', 'uses' => 'Auth\AuthController@register'))->name('register');
 Route::post('login',  array('middleware' => 'cors', 'uses' => 'Auth\AuthController@login'))->name('login');
+Route::post('user/{id}',  array('middleware' => 'cors', 'uses' => 'Auth\AuthController@update'))->name('update');
 Route::get('/user',  array('middleware' => 'cors', 'uses' => 'Auth\AuthController@user'));
 Route::post('/logout', array('middleware' => 'cors', 'uses' => 'Auth\AuthController@logout'));
 

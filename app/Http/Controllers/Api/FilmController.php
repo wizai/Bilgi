@@ -54,14 +54,11 @@ class FilmController extends Controller
      */
     public function update(Request  $request, $id)
     {
-       /* $film = Film::findOrFail($id);
-        $film->title = $request->title;
-        $film->post_content = $request->post_content;
-        $film->email = $request->email;
-        $film->author = $request->author;
+        $film = Film::find($id);
+        $user = User::find($request->get('user_ids'));
+        $film->users()->attach($user);
         $film->save();
-
-        return new FilmResource($film);*/
+        return response()->json($film, 201);
     }
 
     /**
@@ -72,9 +69,6 @@ class FilmController extends Controller
      */
     public function destroy($id)
     {
-        /*$film = Film::findOrFail($id);
-        $film->delete();
-
-        return new PostResource($film);*/
+        Film::delete($id);
     }
 }

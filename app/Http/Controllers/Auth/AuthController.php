@@ -4,6 +4,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
@@ -68,6 +69,34 @@ class AuthController extends Controller
     {
         return new UserResource($request->user());
     }
+
+    public function update(Request $request, $id)
+    {
+
+        $user = User::findOrFail($id);
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->password = bcrypt($request->get('password'));
+
+        if ($request->hobby){
+            DB::table('hobbies')->where('user_id', $id)->delete();
+            foreach (json_decode($request->hobby) as $item) {
+                $user->Hobbies()->create([
+                    'title' => $item
+                ]);
+            }
+        }
+        if ($request->avatar){
+//            DB::table('avatars')->where('user_id', $id)->delete();
+//            Storage::disk('public')->delete('avatars/Ac3L4ioN86EJht9NbtoZbINyQWbVQape4QshqoO2.jpeg');
+            $path  = $request->file('avatar')->store('avatars', ['disk' => 'public']);
+            $user->Avatar()->create([
+                'name'      => asset('/storage/'.$path),
+            ]);
+        }
+        $user->save();
+    }
+
     public function logout()
     {
         auth()->logout();

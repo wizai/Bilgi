@@ -54,7 +54,11 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $article = Article::find($id);
+        $user = User::find($request->get('user_ids'));
+        $article->users()->attach($user);
+        $article->save();
+        return response()->json($article, 201);
     }
 
     /**
@@ -65,6 +69,6 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Article::delete($id);
     }
 }
