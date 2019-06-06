@@ -13,6 +13,7 @@ class CreateArticleUserTable extends Migration
      */
     public function up()
     {
+        Schema::defaultStringLength(191);
         Schema::create('article_user', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('article_id')->nullable();

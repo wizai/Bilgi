@@ -13,6 +13,7 @@ class CreateAvatarsTable extends Migration
      */
     public function up()
     {
+        Schema::defaultStringLength(191);
         Schema::create('avatars', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
