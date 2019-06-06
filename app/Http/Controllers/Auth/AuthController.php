@@ -4,6 +4,8 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Storage;
+
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -18,16 +20,15 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-        var_dump($request);
         if ($request->hobby){
-            foreach ($request->hobby as $item) {
+            foreach (json_decode($request->hobby) as $item) {
                 $user->Hobbies()->create([
                     'title' => $item
                 ]);
             }
         }
-        if ($request->file){
-            $path = $request->file('avatar')->store('avatars');
+        if ($request->avatar){
+            $path  = $request->file('avatar')->store('avatars', ['disk' => 'public']);
             $user->Avatar()->create([
                 'name'      => asset('/storage/'.$path),
             ]);
