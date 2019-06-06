@@ -13,6 +13,7 @@ class CreateFilmsTable extends Migration
      */
     public function up()
     {
+        Schema::defaultStringLength(191);
         Schema::create('films', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();

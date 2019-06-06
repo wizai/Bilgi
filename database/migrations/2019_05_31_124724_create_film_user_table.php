@@ -13,6 +13,7 @@ class CreateFilmUserTable extends Migration
      */
     public function up()
     {
+        Schema::defaultStringLength(191);
         Schema::create('film_user', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('film_id')->nullable();
